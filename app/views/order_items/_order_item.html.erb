@@ -1,0 +1,7 @@
+<tr>
+  <td><%= image_tag order_item.product.primary_img.url, class: "table-img" %></td>
+  <td><%= order_item.product.name %></td>
+  <td><%= order_item.quantity %></td>
+  <td>£<%= format_price(order_item.product.price) %></td>
+  <td><%= link_to "View", product_path(order_item.product), class: "btn btn-primary" %></td>
+</tr>

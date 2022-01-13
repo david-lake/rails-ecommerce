@@ -1,0 +1,2 @@
+$("#status-<%= @order.id %>").html('<div class="status status-dispatched">Dispatched</div>')
+$("#actions-<%= @order.id %>").html('<%= link_to "View", order_path(@order), class: "btn btn-primary" %>')

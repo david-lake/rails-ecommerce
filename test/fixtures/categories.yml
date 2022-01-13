@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+cards:
+  name: cards
+
+bath_bombs:
+  name: bath bombs

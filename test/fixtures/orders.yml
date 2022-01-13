@@ -1,0 +1,64 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: james
+  status: 1
+  item_total: 12.95
+  postage: 2.95
+  shipping_address: one
+  billing_address:  two
+  created_at: <%= Time.zone.yesterday %>
+
+two:
+  user: lana
+  status: 1
+  item_total: 12.95
+  postage: 2.95
+  shipping_address: three
+  billing_address:  four
+  created_at: <%= Time.zone.yesterday %>
+
+three:
+  user: mallory
+  status: 0
+  item_total: 12.95
+  postage: 2.95
+  shipping_address: one
+  billing_address:  two
+  created_at: <%= Time.zone.now %>
+
+in_progress:
+  user: james
+  status: 0
+  item_total: 12.95
+  postage: 2.95
+  shipping_address: one
+  billing_address:  two
+  created_at: <%= Time.zone.now %>
+
+confirmed:
+  user: james
+  status: 2
+  item_total: 12.95
+  postage: 2.95
+  shipping_address: one
+  billing_address:  two
+  created_at: <%= Time.zone.yesterday %>
+
+<% 15.times do |n| %>
+order_<%= n %>:
+     user: james
+     status: 2
+     item_total: 12.95
+     postage: 2.95
+     created_at: <%= 3.days.ago %>
+<% end %>
+
+<% 15.times do |n| %>
+order_<%= n + 15 %>:
+   user: james
+   status: 2
+   item_total: 12.95
+   postage: 2.95
+   created_at: <%= 5.days.ago %>
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+birthday:
+  name: birthday
+  category: cards
+
+valentines:
+  name: valentines
+  category: cards
+
+valentines:
+  name: floral
+  category: bath bombs
+
+valentines:
+  name: fruity
+  category: bath bombs

@@ -1,0 +1,28 @@
+<tr>
+  <td><%= order.id %></td>
+  <td><%= order.created_at.strftime('%b %d %Y') %></td>
+  <td>£<%= format_price(order.item_total + order.postage) %></td>
+  <td id="status-<%= order.id %>">
+    <% if order.status == 3 %>
+      <div class="status status-dispatched">
+        Dispatched
+      </div>
+    <% else %>
+      <div class="status status-pending">
+        Pending ....
+      </div>
+    <% end %>
+  </td>
+  <td id="actions-<%= order.id %>">
+    <%= link_to "View", order_path(order), class: "btn btn-primary" %>
+    <% if edit_dispatched %>
+      <% if order.status < 3 %>
+        <%= link_to "Mark as dispatched", order_path(order),
+                                          method: :patch,
+                                          data: { confirm: "You sure?" },
+                                          remote: true,
+                                          class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

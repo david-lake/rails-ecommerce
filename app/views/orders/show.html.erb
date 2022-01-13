@@ -1,0 +1,53 @@
+<% provide(:title, "Order") %>
+
+<h1>Order #<%= @order.id %></h1>
+<div class="container">
+  <div class="col-md-8">
+    <div class="card">
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+        <% @order.order_items.each do | order_item | %>
+          <tr>
+            <td>
+              <%= image_tag order_item.product.primary_img.url, class: "table-img" %>
+              <%= link_to order_item.product.name, product_path(order_item.product) %>
+            </td>
+            <td><%= order_item.quantity %></td>
+            <td>£<%= format_price(order_item.product.price) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-6 address">
+          <h2>Shipping Address:</h2>
+          <p><%= render @order.shipping_address %></p>
+        </div>
+        <div class="col-md-6 address">
+          <h2>Billing Address:</h2>
+          <p><%= render @order.billing_address %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="col-md-4">
+    <section class="card">
+      <h2>Payment Summary</h2>
+      <dl>
+        <dt>Item Total:</dt>
+        <dd>£<%= format_price(@order.item_total) %></dd>
+        <br>
+        <dt>Postage:</dt>
+        <dd>£<%= format_price(@order.postage) %></dd>
+        <hr>
+        <dt>Total:</dt>
+        <dd>£<%= format_price(@order.item_total + @order.postage) %></dd>
+      </dl>
+    </section>
+  </aside>
+</div>

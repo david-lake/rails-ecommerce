@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: cards
+  sub_category: birthday
+  name: birthday card
+  description: MyText
+  price: 2.50
+  quantity: 5
+  primary_img: test_card.jpg
+
+two:
+  category: cards
+  sub_category: valentines
+  name: valentines card
+  description: MyText
+  price: 2.00
+  quantity: 5
+  primary_img: test_card.jpg
+
+three:
+  category: bath_bombs
+  sub_category: floral
+  name: floral bath bomb
+  description: MyText
+  price: 2.50
+  quantity: 5
+  primary_img: test_bath_bomb.jpg
+
+four:
+  category: bath_bombs
+  sub_category: fruity
+  name: fruity bath bomb
+  description: MyText
+  price: 2.00
+  quantity: 5
+  primary_img: test_bath_bomb.jpg
+
+no_stock:
+  category: cards
+  sub_category: birthday
+  name: no stock card
+  description: MyText
+  price: 2.50
+  quantity: 0
+  primary_img: test_card.jpg
+
+<% 30.times do |n| %>
+product_<%= n %>:
+  category: bath_bombs
+  sub_category: fruity
+  name: <%= "bath bomb #{n}" %>
+  description: MyText
+  price: 2.00
+  quantity: 5
+  primary_img: test_bath_bomb.jpg
+<% end %>

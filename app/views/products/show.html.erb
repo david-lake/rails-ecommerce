@@ -1,0 +1,50 @@
+<% provide(:title, @product.name) %>
+
+<div class="container mt-2">
+  <div class="row">
+    <aside class="col-md-5">
+      <section class="primary-image">
+        <%= image_tag @product.primary_img.url if @product.primary_img? %>
+      </section>
+    </aside>
+    <div class="col-md-6">
+      <h2><%= @product.name %></h2>
+      <p class="mb-2"><%= @product.description %></p>
+      <h2>£<%= format_price(@product.price) %></h2>
+      <% if @product.has_stock? %>
+        <h3>Available: <%= @product.quantity %></h3>
+        <%= form_for(@bag_item) do |f| %>
+          <%= hidden_field_tag :product_id, @product.id %>
+          <div class="input-group quantity mb-2">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-minus" data-field="bag_item[quantity]">
+                -
+              </button>
+            </span>
+            <%= f.number_field :quantity, class: 'form-control quantity text-center', value: 1 %>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-plus" data-field="bag_item[quantity]">
+                +
+              </button>
+            </span>
+          </div>
+          <%= f.submit "Add to bag", class: "btn btn-primary" %>
+        <% end %>
+      <% else %>
+        <h3>Currently out of stock</h3>
+      <% end %>
+      <% if logged_in? && current_user.admin? %>
+          <hr>
+          <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
+          <%= link_to "Delete", @product, method: :delete,
+                                          data: { confirm: "You sure?" },
+                                          class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.btn-plus').on('click', function(e) { quantity.incrementValue(e) });
+  $('.btn-minus').on('click', function(e) { quantity.decrementValue(e); });
+</script>

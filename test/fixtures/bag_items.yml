@@ -1,0 +1,25 @@
+
+one:
+  shopping_bag: bag_one
+  product: one
+  quantity: 1
+
+two:
+  shopping_bag: bag_one
+  product: two
+  quantity: 1
+
+three:
+  shopping_bag: bag_one
+  product: three
+  quantity: 2
+
+no_stock:
+  shopping_bag: bag_two
+  product: no_stock
+  quantity: 2
+
+four:
+  shopping_bag: bag_three
+  product: two
+  quantity: 1

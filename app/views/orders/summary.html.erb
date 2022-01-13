@@ -1,0 +1,128 @@
+<% provide(:title, "Order Summary") %>
+
+<h1>Order Summary</h1>
+<div class="container">
+  <div class="col-md-8">
+    <div class="card">
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+        <% @shopping_bag.bag_items.each do | order_item | %>
+          <tr>
+            <td>
+              <%= image_tag order_item.product.primary_img.url, class: "table-img" %>
+              <%= link_to order_item.product.name, product_path(order_item.product) %>
+            </td>
+            <td><%= order_item.quantity %></td>
+            <td>£<%= format_price(order_item.product.price)%></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-6 address">
+          <h2>Shipping Address:</h2>
+          <p><%= render @order.shipping_address %></p>
+        </div>
+        <div class="col-md-6 address">
+          <h2>Billing Address:</h2>
+          <p><%= render @order.billing_address %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="col-md-4">
+    <section class="card">
+      <h2>Payment Summary</h2>
+      <dl>
+        <dt>Item Total:</dt>
+        <dd>£<%= format_price(@shopping_bag.total) %></dd>
+        <br>
+        <dt>Postage:</dt>
+        <dd>£<%= format_price(@shopping_bag.calculate_postage) %></dd>
+        <hr>
+        <dt>Total:</dt>
+        <dd>£<%= format_price(@shopping_bag.total + @shopping_bag.calculate_postage) %></dd>
+      </dl>
+      <div id="paypal-button"></div>
+    </section>
+  </aside>
+</div>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+  paypal.Button.render({
+    // Configure environment
+    env: 'sandbox',
+    client: {
+      sandbox: 'AT18Q8HDZV9DVe90BCm7RRZpVmbVswxyx9sEDAShVRT3-c4fQ9Rd2sfUgsizkJKX2h3YrQ43Hzy37eRa',
+      production: 'demo_production_client_id'
+    },
+    // Customize button (optional)
+    locale: 'en_US',
+    style: {
+      size: 'medium',
+      color: 'gold',
+      shape: 'pill',
+    },
+
+    // Enable Pay Now checkout flow (optional)
+    commit: true,
+
+    // Set up a payment
+    payment: function(data, actions) {
+      return actions.payment.create({
+        transactions: [{
+          amount: {
+            total: <%= format_price(@shopping_bag.total + @shopping_bag.calculate_postage) %>,
+            currency: 'GBP',
+            details: {
+              subtotal: <%= format_price(@shopping_bag.total) %>,
+              shipping: <%= format_price(@shopping_bag.calculate_postage) %>
+            }
+          },
+          payment_options: {
+            allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
+          },
+          item_list: {
+           items: [
+             <% @shopping_bag.bag_items.each_with_index do | order_item, i | %>
+               {
+                 name: '<%= order_item.product.name %>',
+                 description: '<%= order_item.product.description %>',
+                 quantity: '<%= order_item.quantity %>',
+                 price: '<%= format_price(order_item.product.price) %>',
+                 sku: 'product' + '<%= order_item.product.id.to_s %>',
+                 currency: 'GBP'
+               }<% unless i == @shopping_bag.bag_items.size - 1 %>,<% end %>
+             <% end %>
+           ],
+           shipping_address: {
+             recipient_name: '<%= current_user.fullname %>',
+             line1: '<%= @order.shipping_address.line_1 %>',
+             line2: '<%= @order.shipping_address.line_2 %>',
+             city: '<%= @order.shipping_address.town %>',
+             state: '<%= @order.shipping_address.county %>',
+             postal_code: '<%= @order.shipping_address.postcode.upcase %>',
+             country_code: 'GB'
+           }
+          }
+        }],
+        note_to_payer: 'Contact us for any questions on your order.'
+      });
+    },
+    // Execute the payment
+    onAuthorize: function(data, actions) {
+      return actions.payment.execute().then(function() {
+        $.ajax({
+          type: "PATCH",
+          url: "/order/<%= @order.id %>/payment",
+        });
+      });
+    }
+  }, '#paypal-button');
+</script>

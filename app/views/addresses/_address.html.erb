@@ -1,0 +1,10 @@
+<%= address.line_1 %><br>
+<% unless address.line_2.blank? %>
+  <%= address.line_2 %><br>
+<% end %>
+<% unless address.line_3.blank? %>
+  <%= address.line_3 %><br>
+<% end %>
+<%= address.town %><br>
+<%= address.county %><br>
+<%= address.postcode.upcase %><br>

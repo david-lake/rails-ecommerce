@@ -1,0 +1,18 @@
+<tr <% unless bag_item.product.quantity >= bag_item.quantity %>class="no-stock"<% end %>>
+  <td>
+    <%= image_tag bag_item.product.primary_img.url, class: "table-img" %>
+    <%= link_to bag_item.product.name, product_path(bag_item.product) %>
+  </td>
+  <td>
+    <%= form_for(bag_item) do |f| %>
+      <%= f.number_field :quantity, class: 'form-control' %>
+      <%= f.submit "Update", class: "btn btn-primary" %>
+    <% end %>
+  </td>
+  <td>£<%= format_price(bag_item.product.price) %></td>
+  <td>
+    <%= link_to "X", bag_item, method: :delete,
+                                    data: { confirm: "You sure?" },
+                                    class: "btn btn-danger" %>
+  </td>
+</tr>

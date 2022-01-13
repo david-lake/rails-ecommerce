@@ -1,0 +1,34 @@
+<% provide(:title, "Shopping Bag") %>
+
+<% if @bag_items.any? %>
+  <h1>Your shopping bag</h1>
+  <div class="container">
+    <div class="col-md-8">
+      <div class="card">
+        <table id="bag_items">
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+          <%= render @bag_items %>
+        </table>
+      </div>
+    </div>
+    <aside class="col-md-4">
+      <section class="card">
+        <dl>
+          <dt>Item Total:</dt>
+          <dd>£<%= format_price(@shopping_bag.total) %></dd>
+        </dl>
+        <%= button_to "Checkout", new_order_path,
+                                  method: "get",
+                                  class: "btn btn-primary",
+                                  disabled: !@shopping_bag.enough_stock?  %>
+      </section>
+    </aside>
+  </div>
+<% else %>
+  <h1>Your bag is empty</h1>
+<% end %>

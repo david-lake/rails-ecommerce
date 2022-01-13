@@ -1,0 +1,23 @@
+<% provide(:title, @title) %>
+
+<div class="container">
+  <h1><%= @title %></h1>
+  <% @products.in_groups_of(4).each do |group| %>
+    <div class="row product-row">
+      <% group.each do |product| %>
+        <% if product %>
+          <div class="col-md-3">
+            <%= link_to product do %>
+              <div class="product">
+                <%= image_tag product.primary_img.url %>
+                <h3><%= product.name %></h3>
+                <span>£<%= format_price(product.price) %><span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= will_paginate %>
+</div>

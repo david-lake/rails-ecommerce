@@ -21,7 +21,10 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @bag_item = BagItem.new
+    respond_to do |format|
+      format.html { @bag_item = BagItem.new }
+      format.json { render json: @product }
+    end
   end
 
   def new

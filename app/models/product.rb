@@ -24,6 +24,13 @@ class Product < ApplicationRecord
     end
   end
 
+  def as_json(options = nil)
+    hash = super({ :only => [:id, :name, :description, :quantity, :price, :updated_at] })
+    hash.store(:product_name, hash.delete("name"))
+    hash[:updated_at] = self.updated_at.to_datetime.strftime("%d-%m-%Y %H:%M")
+    return hash
+  end
+
   private
 
     # Validates the size of an uploaded picture.

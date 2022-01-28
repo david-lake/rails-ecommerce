@@ -4,13 +4,18 @@ class ProductsController < ApplicationController
   before_action :get_categories, only: [:new, :create, :edit, :update]
 
   def index
-    if params[:category]
-      category  = Category.find(params[:category])
-      @products = category.products.where("quantity > ?", "0").paginate(page: params[:page], per_page: 28)
-      @title    = category.display_name
-    else
-      @products = Product.where("quantity > ?", "0").paginate(page: params[:page], per_page: 28)
-      @title    = "Shop all"
+    respond_to do |format|
+      format.html {
+        if params[:category]
+          category  = Category.find(params[:category])
+          @products = category.products.where("quantity > ?", "0").paginate(page: params[:page], per_page: 28)
+          @title    = category.display_name
+        else
+          @products = Product.where("quantity > ?", "0").paginate(page: params[:page], per_page: 28)
+          @title    = "Shop all"
+        end
+      }
+      format.json { render json: Product.all }
     end
   end
 

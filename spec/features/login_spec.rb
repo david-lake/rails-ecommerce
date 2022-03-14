@@ -1,24 +1,23 @@
 require 'rails_helper'
 
 feature 'Login' do
+  let(:login_page) { LoginPage.new }
 
   before do
     @user = FactoryBot.create(:user)
-    visit login_path
+    login_page.load
   end
 
   scenario 'successfull' do
-    fill_in "Email", with: @user.email
-    fill_in "Password", with: @user.password
-    click_button "Login"
-    expect(page).to have_css "#account.dropdown"
+    home_page = login_page.login(@user.email, @user.password)
+    expect(home_page).to be_displayed
+    expect(home_page).to have_account_menu
   end
 
   scenario 'unsuccessfull' do
-    fill_in "Email", with: @user.email
-    fill_in "Password", with: "incorrect"
-    click_button "Login"
-    expect(page).to have_no_css "#account.dropdown"
-    expect(find(".alert-danger").text).to eq "Invalid email or password"
+    login_page.login(@user.email, "invalid")
+    expect(login_page).to be_displayed
+    expect(login_page).to have_no_account_menu
+    expect(login_page.alert.text).to eq "Invalid email or password"
   end
 end

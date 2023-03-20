@@ -4,7 +4,7 @@ gem 'rails',                    '5.1.6'
 gem 'pg',                       '1.2.3'
 gem 'bcrypt',                   '3.1.7'
 gem 'faker',                    '1.4.2'
-gem 'carrierwave',              '2.0.2'
+gem 'carrierwave',              '2.2.3'
 gem 'mini_magick',              '4.9.5'
 gem 'fog-google',               '1.9.1'
 gem 'will_paginate',            '3.2.1'
@@ -16,14 +16,11 @@ gem 'coffee-rails',             '4.2.2'
 gem 'jquery-rails',             '4.3.1'
 gem 'turbolinks',               '5.0.1'
 gem 'jbuilder',                 '2.7.0'
-gem 'font-awesome-sass'
+gem "font-awesome-sass",        "~> 6.3.0"
 
 group :development, :test do
-  gem 'byebug',  '9.0.6', platform: :mri
+  gem 'byebug',      '9.0.6', platform: :mri
   gem 'rspec-rails', '4.0.0'
-  gem 'capybara', '~> 2.13'
-  gem 'webdrivers'
-  gem "factory_bot_rails"
 end
 
 group :development do

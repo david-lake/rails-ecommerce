@@ -1,16 +1,7 @@
 # --- Users ----
-User.create!(first_name: "David",
-             last_name:  "Lake",
-             email: "david.lake@example.co.uk",
-             password:              "foobarfoo",
-             password_confirmation: "foobarfoo",
-             admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
-
-User.create!(first_name: "Nicola",
-             last_name:  "Howes",
-             email: "nicola.howes@example.co.uk",
+User.create!(first_name: "Test",
+             last_name:  "Admin",
+             email: "test.admin@example.co.uk",
              password:              "foobarfoo",
              password_confirmation: "foobarfoo",
              admin: true,
@@ -18,8 +9,8 @@ User.create!(first_name: "Nicola",
              activated_at: Time.zone.now)
 
  User.create!(first_name: "Test",
-              last_name:  "User",
-              email: "test.user@example.co.uk",
+              last_name:  "Customer",
+              email: "test.customer@example.co.uk",
               password:              "foobarfoo",
               password_confirmation: "foobarfoo",
               activated: true,

@@ -21,6 +21,10 @@ gem "font-awesome-sass",        "~> 6.3.0"
 group :development, :test do
   gem 'byebug',      '9.0.6', platform: :mri
   gem 'rspec-rails', '4.0.0'
+  gem 'factory_bot_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 group :development do

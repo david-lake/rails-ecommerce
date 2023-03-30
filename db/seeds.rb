@@ -1,34 +1,30 @@
 # --- Users ----
+password = "foobarfoo"
+
+User.create!(first_name: "Test",
+             last_name:  "User",
+             email: "test.user@example.co.uk",
+             password:              password,
+             password_confirmation: password,
+             activated: true,
+             activated_at: Time.zone.now)
+
 User.create!(first_name: "Test",
              last_name:  "Admin",
              email: "test.admin@example.co.uk",
-             password:              "foobarfoo",
-             password_confirmation: "foobarfoo",
+             password:              password,
+             password_confirmation: password,
              admin: true,
              activated: true,
              activated_at: Time.zone.now)
 
- User.create!(first_name: "Test",
-              last_name:  "Customer",
-              email: "test.customer@example.co.uk",
-              password:              "foobarfoo",
-              password_confirmation: "foobarfoo",
+User.create!(first_name: "Another",
+              last_name: "User",
+              email: "another.user@example.co.uk",
+              password:              password,
+              password_confirmation: password,
               activated: true,
               activated_at: Time.zone.now)
-
-97.times do |n|
-  first_name  = Faker::Name.first_name
-  last_name = Faker::Name.last_name
-  email = "example-#{n+1}@example.co.uk"
-  password = "password"
-  User.create!(first_name: first_name,
-               last_name:  last_name,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               activated: true,
-               activated_at: Time.zone.now)
-end
 
 # ----- PRODUCTS -----
 
@@ -88,11 +84,11 @@ end
 
 # ---- Adresses ----
 
-Address.create!(user: User.first, line_1: "45 Barrymore Walk", town: "Rayleigh",
-                county: "Essex", postcode: "ss6 8yf")
+Address.create!(user: User.first, line_1: "10 Street Name", town: "Town",
+                county: "County", postcode: "SS5 9UD")
 
-Address.create!(user: User.first, line_1: "10 Barrymore Walk", town: "Rayleigh",
-                county: "Essex", postcode: "ss6 8yf")
+Address.create!(user: User.first, line_1: "20 Street Name", town: "Town",
+                county: "County", postcode: "SS5 9UD")
 
 # --- Orders ---
 
@@ -105,15 +101,14 @@ def add_order_items(order)
   order.update(item_total: item_total, postage: 2.95)
 end
 
-2.times do |n|
-  order = Order.create!(user: User.first, status: 1,
-                        shipping_address_id: 1, billing_address_id: 1)
-  add_order_items(order)
-end
+order = Order.create!(user: User.first, status: 1,
+                      shipping_address_id: 1, billing_address_id: 1)
+add_order_items(order)
 
-3.times do |n|
+
+2.times do |n|
   order = Order.create!(user: User.first, status: 3,
-                        shipping_address_id: 2, billing_address_id: 2,
+                        shipping_address_id: 1, billing_address_id: 2,
                         created_at: Time.zone.yesterday)
   add_order_items(order)
 end

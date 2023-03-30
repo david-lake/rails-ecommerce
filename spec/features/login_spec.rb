@@ -6,7 +6,7 @@ feature 'Login' do
     visit login_path
   end
 
-  scenario 'standard users can login' do
+  scenario 'standard user can login' do
     user = FactoryBot.create(:user)
 
     fill_in "Email", with: user.email
@@ -18,7 +18,7 @@ feature 'Login' do
     expect(page).to have_no_link "Manage"
   end
 
-  scenario 'admin users can login' do
+  scenario 'admin user can login' do
     user = FactoryBot.create(:user, admin: true)
 
     fill_in "Email", with: user.email

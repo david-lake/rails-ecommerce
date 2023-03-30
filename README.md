@@ -146,11 +146,22 @@ Replace <username>, <password>, and <database_name> with your PostgreSQL databas
 You should now be able to access the application by going to http://localhost:3000 in your web browser.
 
 &nbsp; 
-## Running Tests
+## Test Users
+
+There are two main test accounts that can be used to login. 
+
+Standard user email: test.user@example.co.uk
+
+Admin user email: test.admin@example.co.uk
+
+Password: foobarfoo
 
 &nbsp; 
-To run the tests for this application, you can use the following command:
+## Running Feature Tests
 
-`rails test`
+&nbsp; 
+To run the feature tests for this application, you can use the following command:
 
-This will run all
+`rspec spec/features`
+
+This will run all the feature tests on a headless chrome browser by default.

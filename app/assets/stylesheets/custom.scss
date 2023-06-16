@@ -60,7 +60,7 @@ tr:hover { background: $gray-lighter; }
 .overlay {
   width: 100%; /* Full width (cover the whole container) */
   height: 100%; /* Full height (cover the whole container) */
-  background: rgba(239,118,122,.8);
+  background: rgba(126,93,255,.7);
   color: white;
   position: absolute;
   top: 0;
@@ -271,6 +271,7 @@ footer {
     text-align: center;
     margin-right: 8px;
     margin-bottom: 10px;
+    padding-top: 18px;
     border: 1px solid #fff;
     -webkit-transition: .3s;
     -moz-transition: .3s;

@@ -1,7 +1,7 @@
 <% provide(:title, "Orders") %>
 
-<h1>Orders</h1>
 <div class="container">
+<h1>Orders</h1>
   <% if @orders.any? %>
     <%= render 'orders_table', edit_dispatched: true %>
     <%= will_paginate %>
